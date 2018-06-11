@@ -1,0 +1,11 @@
+.upload-section {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.upload-flex-item {
+    display: flex;
+    flex: 0 1 auto;
+    padding-right: 20px;
+}

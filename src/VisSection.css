@@ -1,0 +1,47 @@
+.vis-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+
+.vis-flex-item {
+    /*display: flex;*/
+    flex: 0 1 auto;
+}
+
+.rgblog-panel {
+
+}
+
+.spectralplot-panel {
+    min-width: 300px;
+}
+
+.welllog-panel {
+
+}
+
+.seismic-plot {
+    /*height: 1000px;*/
+}
+
+.freqslider-panel {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5px;
+}
+
+.freqslider {
+    flex: 1 1 auto;
+}
+
+.seismiccontrols {
+    display: flex;
+}
+
+.pad-top {
+    padding-top: 20px;
+}
+

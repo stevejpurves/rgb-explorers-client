@@ -6,6 +6,7 @@ import spectralplot from './images/spectralplot.png'
 import './VisSection.css'
 import SeismicControls from './SeismicControls'
 import fetchDataFrom from "./fetchDataFrom";
+import throttle from 'lodash/throttle';
 
 
 class RGBLog extends React.Component  {
@@ -14,7 +15,7 @@ class RGBLog extends React.Component  {
         data: null
     }
 
-    fetchRGBData = async () => {
+    fetchRGBData = throttle(async () => {
         const {f_r, f_g, f_b} = this.props;
 
         let data = null;
@@ -24,6 +25,7 @@ class RGBLog extends React.Component  {
                     f_r,
                     f_g,
                     f_b,
+                    length: 460,
                     dpi:180
                 }
             })
@@ -34,7 +36,7 @@ class RGBLog extends React.Component  {
         }
 
         this.setState({data});
-    }
+    }, 500, {'trailing': true})
 
     componentDidMount = async () => {
         this.fetchRGBData();
@@ -59,6 +61,7 @@ class RGBLog extends React.Component  {
         const {data} = this.state;
         return (
             <div className="vis-flex-item rgblog-panel">
+                RGB Log
                 {data && <Image src={data} />}
             </div>)
     }
@@ -122,6 +125,8 @@ class SpectralPlot extends React.Component {
         const {f_r, f_g, f_b, onChangeRed, onChangeGreen, onChangeBlue} = this.props;
         return (
             <div className="vis-flex-item spectralplot-panel">
+                <div>Frequency Scale Space on Time Converted AI Log</div>
+                <div>(y: time (su section), x: frequency 5-80Hz)</div>
                 <Image src={spectralplot} />
                 <FreqSlider title="R" color="red" start={f_r} onChange={onChangeRed}/>
                 <FreqSlider title="G" color="green" start={f_g} onChange={onChangeGreen}/>
@@ -133,6 +138,7 @@ class SpectralPlot extends React.Component {
 
 const WellLog = () => {
     return (<div className="vis-flex-item welllog-panel">
+        Gamma Ray Log (full)
         <Image src={log}/>
     </div>)
 }
@@ -145,24 +151,26 @@ class VisSection extends React.Component {
         f_b: 30
     }
 
-    onRed = (value) => {
+    onRed = throttle((value) => {
         this.setState({f_r: value})
-    }
+    }, 900);
 
-    onGreen = (value) => {
+    onGreen = throttle((value) => {
         this.setState({f_g: value})
-    }
+    }, 900);
 
-    onBlue = (value) => {
+    onBlue = throttle((value) => {
         this.setState({f_b: value})
-    }
+    }, 900);
 
     render() {
         const {f_r, f_g, f_b} = this.state;
         return (<div className="vis-section">
             <WellLog />
             <SpectralPlot f_r={f_r} f_g={f_g} f_b={f_b}
-                          onChangeRed={this.onRed} onChangeGreen={this.onGreen} onChangeBlue={this.onBlue}/>
+                          onChangeRed={this.onRed}
+                          onChangeGreen={this.onGreen}
+                          onChangeBlue={this.onBlue}/>
             <RGBLog f_r={f_r} f_g={f_g} f_b={f_b} />
             <SeismicControls f_r={f_r} f_g={f_g} f_b={f_b}/>
         </div>)

@@ -4,6 +4,7 @@ import {Image, Label, Form, Radio, Button, Loader, Message} from 'semantic-ui-re
 import { Slider } from 'react-semantic-ui-range'
 import {fetch, createClient} from "fetch-plus";
 import fetchDataFrom from './fetchDataFrom'
+import throttle from 'lodash/throttle';
 
 const DIMS = {
     'x': [250,502,1],
@@ -40,7 +41,7 @@ class SeismicControls extends React.Component {
         data: null
     }
 
-    fetchRGBData = async ({value, index}) => {
+    fetchRGBData = throttle(async ({value, index}) => {
         const {f_r, f_g, f_b} = this.props;
 
         let data = null;
@@ -62,7 +63,7 @@ class SeismicControls extends React.Component {
         }
 
         this.setState({loading: false, error:'', data});
-    }
+    }, 1000, {'trailing':true});
 
     shouldComponentUpdate(nextProps, nextState) {
         const {data, index, direction} = this.state;
@@ -110,6 +111,7 @@ class SeismicControls extends React.Component {
 
         return (
             <div className="vis-flex-item seismic-panel">
+                Seismic Section
                 {the_plot}
                 <div className="seismicontrols">
                     <Form className="pad-top">

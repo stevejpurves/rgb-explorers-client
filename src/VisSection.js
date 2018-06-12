@@ -126,7 +126,7 @@ class SpectralPlot extends React.Component {
         return (
             <div className="vis-flex-item spectralplot-panel">
                 <div>Frequency Scale Space on Time Converted AI Log</div>
-                <div>(y: time (su section), x: frequency 5-80Hz)</div>
+                <div>(y: time (sub section), x: frequency 5-80Hz)</div>
                 <Image src={spectralplot} />
                 <FreqSlider title="R" color="red" start={f_r} onChange={onChangeRed}/>
                 <FreqSlider title="G" color="green" start={f_g} onChange={onChangeGreen}/>

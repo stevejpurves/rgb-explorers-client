@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, Label, Form, Radio} from 'semantic-ui-react'
+import {Image, Label, Form, Radio, Button} from 'semantic-ui-react'
 import { Slider } from 'react-semantic-ui-range'
 import log from './images/log.png'
 import spectralplot from './images/spectralplot.png'
@@ -127,6 +127,7 @@ class SpectralPlot extends React.Component {
                 <FreqSlider title="R" color="red" start={f_r} onChange={onChangeRed}/>
                 <FreqSlider title="G" color="green" start={f_g} onChange={onChangeGreen}/>
                 <FreqSlider title="B" color="blue" start={f_b}  onChange={onChangeBlue}/>
+                <Button color="red">Optimise</Button>
             </div>)
     }
 }
@@ -154,7 +155,6 @@ class VisSection extends React.Component {
     }
 
     onBlue = (value) => {
-        console.log("on blue")
         this.setState({f_b: value})
     }
 

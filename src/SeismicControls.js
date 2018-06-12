@@ -40,8 +40,7 @@ class SeismicControls extends React.Component {
         data: null
     }
 
-    fetchRGBData = async () => {
-        const {value, index} = this.state;
+    fetchRGBData = async ({value, index}) => {
         const {f_r, f_g, f_b} = this.props;
 
         let data = null;
@@ -66,10 +65,14 @@ class SeismicControls extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        const {data} = this.state;
+        const {data, index, direction} = this.state;
         const {f_r, f_g, f_b} = this.props;
-        if (f_r !== nextProps.f_r || f_g !== nextProps.f_g ||
-            f_b !== nextProps.f_b || data !== nextState.data) {
+        if (f_r !== nextProps.f_r ||
+            f_g !== nextProps.f_g ||
+            f_b !== nextProps.f_b ||
+            index !== nextState.index ||
+            direction !== nextState.direction ||
+            data !== nextState.data) {
             console.log("update seimsic")
             return true;
         }
@@ -77,28 +80,25 @@ class SeismicControls extends React.Component {
     }
 
     componentDidMount = async () => {
-        this.fetchRGBData()
+        this.fetchRGBData(this.state)
     }
 
     componentDidUpdate = async (prevProps) => {
-        this.fetchRGBData()
+        this.fetchRGBData(this.state)
     }
 
 
-    radioChange = async (e, {value}) => {
-        this.setState({value, index: DEFAULT_INDEX[value]})
-        await this.fetchRGBData()
+    radioChange = (e, {value}) => {
+        this.setState({value, index: DEFAULT_INDEX[value]}) //, async state => await this.fetchRGBData(state))
     }
 
     sliderChange = async (index) => {
-        console.log(index)
-        this.setState({index})
-        await this.fetchRGBData()
+        this.setState({index}) //, async state => await this.fetchRGBData(state))
+
     }
 
     jumpToWell = async () => {
-        this.setState(state => ({index: DEFAULT_INDEX[state.value]}))
-        await this.fetchRGBData()
+        this.setState(state => ({index: DEFAULT_INDEX[state.value]}))//, async state => await this.fetchRGBData(state))
     }
 
     render() {

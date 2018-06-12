@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "fetch-plus": "^3.10.6",
+    "lodash": "^4.17.10",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4",

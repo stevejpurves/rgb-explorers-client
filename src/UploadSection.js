@@ -12,6 +12,4 @@ const UploadSection = () => {
 }
 
 
-
-
 export default UploadSection;

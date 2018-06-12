@@ -45,13 +45,13 @@ class RGBLog extends React.Component  {
         const {f_r, f_g, f_b} = this.props;
         if (f_r !== nextProps.f_r || f_g !== nextProps.f_g ||
             f_b !== nextProps.f_b || data !== nextState.data) {
-            console.log("update seimsic")
             return true;
         }
         return false;
     }
 
-    componentDidUpdate = async (prevProps) => {
+    componentDidUpdate = async () => {
+        console.log("RGSeismic::componentDidUpdate", this.state)
         this.fetchRGBData();
     }
 
@@ -66,7 +66,6 @@ class RGBLog extends React.Component  {
 
 
 const FreqSlider = ({title, color, start, onChange}) => {
-    console.log(start)
     return (<div className="freqslider-panel">
         <Label className="vis-flex-item" color={color}>{title}</Label>
         <div className="freqslider">

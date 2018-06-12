@@ -73,7 +73,6 @@ class SeismicControls extends React.Component {
             index !== nextState.index ||
             direction !== nextState.direction ||
             data !== nextState.data) {
-            console.log("update seimsic")
             return true;
         }
         return false;
@@ -83,7 +82,8 @@ class SeismicControls extends React.Component {
         this.fetchRGBData(this.state)
     }
 
-    componentDidUpdate = async (prevProps) => {
+    componentDidUpdate = async () => {
+        console.log("RGSeismic::componentDidUpdate", this.state)
         this.fetchRGBData(this.state)
     }
 
